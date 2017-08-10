@@ -22,12 +22,33 @@ var game = {
     "e", "e", "f", "f",
     "g", "g", "h", "h"
   ],
+  picturesForCards: [
+    "url('http://lorempixel.com/200/200/business/1')",
+    "url('http://lorempixel.com/200/200/cats/1')",
+    "url('http://lorempixel.com/200/200/city/1')",
+    "url('http://lorempixel.com/200/200/food/1')",
+    "url('http://lorempixel.com/200/200/animals/1')",
+    "url('http://lorempixel.com/200/200/nature/1')",
+    "url('http://lorempixel.com/200/200/abstract/1')",
+    "url('http://lorempixel.com/200/200/animals/1')"
+  ],
 
   initialize: function(){
-    console.log("gridOfCards: "+this.gridOfCards);
     this.gridOfCards.shuffle();
-    console.log("gridOfCards - shuffled: "+this.gridOfCards);
+    console.log("gridOfCards: "+this.gridOfCards);
   }
 }
 
+var availableStepsPerDraw = 2;
+
+// Initialize the game.
 game.initialize();
+
+// A function to execute when the DOM is fully loaded.
+$(function() {
+  $('[data-card-position]').click(function(){
+    var selectedCard = $(this);
+    var pictureUrlOfCard = game.picturesForCards[selectedCard.data("cardPosition")];
+    selectedCard.css("background-image", pictureUrlOfCard);
+  });
+});

@@ -1,21 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  </head>
-  <body>
-    <h1>Wanna Play Memory?</h1>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <!--  Memory Game Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main class="game">
+    <h1 class="centered">Wanna Play Memory?</h1>
+    <hr>
+    <div class="square">
+      <ul class="gameBoard square__content">
+        <li class="memoryCard" data-card-position="1" data-action="flip">
+        </li><li class="memoryCard" data-card-position="2" data-action="flip">
+        </li><li class="memoryCard" data-card-position="3" data-action="flip">
+        </li><li class="memoryCard" data-card-position="4" data-action="flip">
+        </li><li class="memoryCard" data-card-position="5" data-action="flip">
+        </li><li class="memoryCard" data-card-position="6" data-action="flip">
+        </li><li class="memoryCard" data-card-position="7" data-action="flip">
+        </li><li class="memoryCard" data-card-position="8" data-action="flip">
+        </li><li class="memoryCard" data-card-position="9" data-action="flip">
+        </li><li class="memoryCard" data-card-position="10" data-action="flip">
+        </li><li class="memoryCard" data-card-position="11" data-action="flip">
+        </li><li class="memoryCard" data-card-position="12" data-action="flip">
+        </li><li class="memoryCard" data-card-position="13" data-action="flip">
+        </li><li class="memoryCard" data-card-position="14" data-action="flip">
+        </li><li class="memoryCard" data-card-position="15" data-action="flip">
+        </li><li class="memoryCard" data-card-position="16" data-action="flip"></li>
+      </ul>
+    </div>
+  <main>
 
 
-    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="index.js"></script>
-  </body>
+  <!-- jQuery first, then Tether, then Bootstrap JS. -->
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+</body>
+
 </html>
