@@ -8,6 +8,10 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+  <!-- Fontawesome CSS -->
+  <link rel="stylesheet" href="vendor/font-awesome.min.css">
+
   <!--  Memory Game Styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -16,6 +20,27 @@
   <main class="game">
     <h1 class="centered">Wanna Play Memory?</h1>
     <hr>
+    <section class="controls">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            Timer:
+          </div>
+          <div class="col-sm">
+            Moves:
+          </div>
+          <div class="col-sm">
+            Rating:
+          </div>
+          <div class="col-sm">
+            Reset:
+            <i class="fa fa-power-off" data-action="reset-game" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr>
+
     <div class="square">
       <ul class="gameBoard square__content">
         <li class="memoryCard" data-card-position="1" data-action="flip">
@@ -36,8 +61,7 @@
         </li><li class="memoryCard" data-card-position="16" data-action="flip"></li>
       </ul>
     </div>
-  <main>
-
+    <main>
 
   <!-- jQuery first, then Tether, then Bootstrap JS. -->
   <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
