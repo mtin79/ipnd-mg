@@ -17,7 +17,7 @@
 }
 
 .memoryCard {
-  position:relative;
+  position: relative;
   width: 23%;
   height: 23%;
   padding: 0;
@@ -29,20 +29,28 @@
   border-radius: 4px;
   border: 8px solid white;
   box-shadow: 1px 1px 4px grey;
-  background-image: url("media/contemporary_china.png");
   background-size: 150%;
 }
+.memoryCard--mismatch{
+  border-color:red;
+}
 
-.memoryCard .memoryCard__content{
-  position:absolute;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
+.memoryCard:not(.found) {
+  background-image: url("media/contemporary_china.png");
+}
+
+.memoryCard .memoryCard__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   text-align: center;
   display: inline-block;
   background-size: cover;
 }
+
+.controls {}
 
 .centered {
   text-align: center;
