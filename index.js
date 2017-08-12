@@ -21,6 +21,7 @@ var game = {
   gameEndDate: undefined,
   gameDurationInSeconds: undefined,
   moves: 0,
+  cardPairComparison: false,
   gameplayStarRating: 3,
   cardPairsFound: 0,
   drawStepCards: [undefined, undefined],
@@ -91,37 +92,51 @@ $(function() {
   });
 
   $('[data-card-position]:not(.found)').click(function(){
-    var selectedCard = $(this);
-    var pictureUrlOfCard = game.picturesForCards[game.gridOfCards[selectedCard.data("cardPosition")]];
-    selectedCard.css("background-image", pictureUrlOfCard);
+    // If two cards have been selected and compared, prevent other cards to be selected.
+    if (game.cardPairComparison === true) {
+      $(this).hide('fast').show('fast');
+      return;
+    }
 
+    // Test if game just got started to initialize gameplay variables.
     game.startGame(gameStarted);
+
+    var selectedCard = $(this);
+    var pictureUrlOfCard = game.picturesForCards[game.gridOfCards[selectedCard.data("cardPosition")-1]];
+    
+    selectedCard.css("background-image", pictureUrlOfCard);
     game.drawStepCards[game.availableStepsPerDraw-1] = $(this).data("cardPosition");
 
     console.log("game.drawStepCards :"+game.drawStepCards);
     console.log("availableStepsPerDraw:"+game.availableStepsPerDraw);
+
     switch (game.availableStepsPerDraw) {
       case 1:
         game.availableStepsPerDraw += 1;
         game.moves += 1;
         break;
       case 2:
-        if (game.gridOfCards[game.drawStepCards[0]] !== game.gridOfCards[game.drawStepCards[1]]) {
+        game.cardPairComparison = true;
+        if (game.gridOfCards[game.drawStepCards[0]-1] !== game.gridOfCards[game.drawStepCards[1]-1]) {
           $('[data-card-position="'+game.drawStepCards[0]+'"], [data-card-position="'+game.drawStepCards[1]+'"]').addClass("memoryCard--mismatch");
           var timeoutID = window.setTimeout(function(){
             $('[data-card-position="'+game.drawStepCards[0]+'"], [data-card-position="'+game.drawStepCards[1]+'"]').removeClass("memoryCard--mismatch").css("background-image", game.defaultCardPicture );
+            game.cardPairComparison = false;
           },
           2000);
         } else {
           game.cardPairsFound += 1;
           $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').addClass("found");
+          game.cardPairComparison = false;
         }
         game.availableStepsPerDraw = 1;
         break;
     }
 
     if (game.cardPairsFound === 8) {
-      alert("You won!");
+      var timeoutID = window.setTimeout(function () {
+        alert("You won!");
+      },1000);
     }
 
   });
