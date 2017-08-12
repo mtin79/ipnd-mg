@@ -1,5 +1,4 @@
 // Extend Array Class with method to shuffle cards.
-// https://www.kirupa.com/html5/shuffling_array_js.htm
 Array.prototype.shuffle = function() {
     var input = this;
 
@@ -33,26 +32,25 @@ var game = {
     "e", "e", "f", "f",
     "g", "g", "h", "h"
   ],
-  startGame: function(gameStartedFlag){
+  startGame: function(){
     if (game.gameStarted === false) {
       game.gameStarted = true;
-      game.gameStartDate = Date();
+      game.gameStartDate = Date.now();
 
       console.log("Game started: "+game.gameStarted+" ,"+game.gameStartDate);
     }
   },
-  endGame: function(gameStartedFlag){
+  endGame: function(){
     if (game.gameStarted === true) {
       game.gameStarted = false;
-      game.gameEndDate = Date();
-      var gameDurationInSeconds = (endTime - startTime)/1000;
+      game.gameEndDate = Date.now();
+      game.gameDurationInSeconds = (game.gameEndDate - game.gameStartDate) / 1000;
 
       $('[data-card-position]').removeClass("found");
-      $('[data-card-position]').css("background-image", pictureUrlOfCard);
+      $('[data-card-position]').removeClass("memoryCard--mismatch");
+      $('[data-card-position]').css("background-image", game.defaultCardPicture);
 
-      console.log("Game Ended: "+game.EndDate+" ,"+gameDurationInSeconds);
-
-      return gameDurationInSeconds;
+      console.log("Game Ended: "+game.EndDate+" ,"+game.gameDurationInSeconds);
     }
   },
   picturesForCards: {
@@ -68,15 +66,15 @@ var game = {
   defaultCardPicture: "url('./media/contemporary_china.png')",
 
   initialize: function(){
-    gameStarted = false;
-    gameStartDate = undefined;
-    gameEndDate = undefined;
-    gameDurationInSeconds = undefined;
-    moves = 0;
-    gameplayStarRating = 3;
-    cardPairsFound = 0;
-    drawStepCards = [undefined, undefined];
-    this.gridOfCards.shuffle();
+    game.gameStarted = false;
+    game.gameStartDate = undefined;
+    game.gameEndDate = undefined;
+    game.gameDurationInSeconds = undefined;
+    game.moves = 0;
+    game.gameplayStarRating = 3;
+    game.cardPairsFound = 0;
+    game.drawStepCards = [undefined, undefined];
+    game.gridOfCards.shuffle();
     console.log("gridOfCards: "+this.gridOfCards);
   }
 }
@@ -88,6 +86,8 @@ game.initialize();
 $(function() {
   $('[data-action="reset-game"]').click(function(){
     game.endGame();
+    $('#wonModal').modal('hide');
+    game.startGame();
 
   });
 
@@ -99,7 +99,7 @@ $(function() {
     }
 
     // Test if game just got started to initialize gameplay variables.
-    game.startGame(gameStarted);
+    game.startGame();
 
     var selectedCard = $(this);
     var pictureUrlOfCard = game.picturesForCards[game.gridOfCards[selectedCard.data("cardPosition")-1]];
@@ -135,7 +135,12 @@ $(function() {
 
     if (game.cardPairsFound === 8) {
       var timeoutID = window.setTimeout(function () {
-        alert("You won!");
+        game.endGame();
+        // game.showDuration();
+        // game.showMoves();
+        // game.showStartRating(game.moves);
+        $('#wonModal').modal('show');
+        $("#wonModal .gameDuration").text("Duration: " + parseInt(game.gameDurationInSeconds / 60) + " minutes," + parseInt(game.gameDurationInSeconds % 60) + " seconds");
       },1000);
     }
 
