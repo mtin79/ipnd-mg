@@ -45,12 +45,6 @@ var game = {
       game.gameStarted = false;
       game.gameEndDate = Date.now();
       game.gameDurationInSeconds = (game.gameEndDate - game.gameStartDate) / 1000;
-
-      $('[data-card-position]').removeClass("found");
-      $('[data-card-position]').removeClass("memoryCard--mismatch");
-      $('[data-card-position]').css("background-image", game.defaultCardPicture);
-
-      console.log("Game Ended: "+game.EndDate+" ,"+game.gameDurationInSeconds);
     }
   },
   picturesForCards: {
@@ -70,11 +64,15 @@ var game = {
     game.gameStartDate = undefined;
     game.gameEndDate = undefined;
     game.gameDurationInSeconds = undefined;
+    game.availableStepsPerDraw = 1;
     game.moves = 0;
     game.gameplayStarRating = 3;
     game.cardPairsFound = 0;
     game.drawStepCards = [undefined, undefined];
     game.gridOfCards.shuffle();
+    $('[data-card-position]').removeClass("found");
+    $('[data-card-position]').removeClass("memoryCard--mismatch");
+    $('[data-card-position]').css("background-image", game.defaultCardPicture);
     console.log("gridOfCards: "+this.gridOfCards);
   }
 }
@@ -86,8 +84,8 @@ game.initialize();
 $(function() {
   $('[data-action="reset-game"]').click(function(){
     game.endGame();
+    game.initialize();
     $('#wonModal').modal('hide');
-    game.startGame();
 
   });
 
@@ -129,18 +127,36 @@ $(function() {
           $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').addClass("found");
           game.cardPairComparison = false;
         }
+        game.moves += 1;
         game.availableStepsPerDraw = 1;
         break;
     }
 
     if (game.cardPairsFound === 8) {
-      var timeoutID = window.setTimeout(function () {
-        game.endGame();
+      game.endGame();
+      $("#wonModal .gameDuration").text("Duration: " + parseInt(game.gameDurationInSeconds / 60) + " minutes," + parseInt(game.gameDurationInSeconds % 60) + " seconds");
+      $("#wonModal .moves").text("Moves: " + parseInt(game.moves));
+      $("#wonModal .starRating").text(function(){
+        var starString = "";
+        var starActiveString = '<i class="fa fa-star" aria-hidden="true"></i>';
+        var starInactiveString = '<i class="fa fa-star-o" aria-hidden="true"></i>';
+        if (game.moves == game.starRatingThresholds[2]) {
+          starString = starActiveString + starActiveString + starActiveString;
+        } else if (game.moves <= game.starRatingThresholds[1]){
+          starString = starActiveString + starActiveString + starInactiveString;
+        } else {
+          starString = starInactiveString + starInactiveString + starInactiveString;
+        };
+        console.log($(this));
+
+        $(this).html("Rating: "+starString);
+      });
+
+      window.setTimeout(function () {
         // game.showDuration();
         // game.showMoves();
         // game.showStartRating(game.moves);
         $('#wonModal').modal('show');
-        $("#wonModal .gameDuration").text("Duration: " + parseInt(game.gameDurationInSeconds / 60) + " minutes," + parseInt(game.gameDurationInSeconds % 60) + " seconds");
       },1000);
     }
 
