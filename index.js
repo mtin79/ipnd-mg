@@ -98,16 +98,19 @@ var game = {
       $(this).html(starString);
     });
   },
+  // The checkCurrentPairOfCards - method checks when two cards are revealed if
+  // they are a match or not and saves the result back into the game stats.
   checkCurrentPairOfCards: function(){
     game.cardPairComparison = true;
     if (game.gridOfCards[game.drawStepCards[0] - 1] !== game.gridOfCards[game.drawStepCards[1] - 1]) {
-      $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').addClass("memoryCard--mismatch");
+      $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]')
+        .addClass("memoryCard--mismatch");
       var timeoutID = window.setTimeout(function() {
-          $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').removeClass("memoryCard--mismatch").removeClass("found").css("background-image", game.defaultCardPicture);
+        $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]')
+          .removeClass("memoryCard--mismatch").removeClass("found").css("background-image", game.defaultCardPicture);
           game.cardPairComparison = false;
         },
         2000);
-
     } else {
       game.cardPairsFound += 1;
       $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').addClass("found");
@@ -117,10 +120,16 @@ var game = {
     game.availableStepsPerDraw = 1;
     game.updateGameStats();
   },
+  // The checkIfAllPairsOfCardsFound - method checks if that game is finished
+  // and all card pairs have been found. It will then display a modal window
+  // with the gameplace results.
   checkIfAllPairsOfCardsFound: function(){
     if (game.cardPairsFound === 8) {
       game.endGame();
-      $("#wonModal .gameDuration").text("Duration: " + parseInt(game.gameDurationInSeconds / 60) + " minutes," + parseInt(game.gameDurationInSeconds % 60) + " seconds");
+      $("#wonModal .gameDuration").text(
+        "Duration: " + parseInt(game.gameDurationInSeconds / 60) +
+         " minutes," + parseInt(game.gameDurationInSeconds % 60) +
+         " seconds");
       $("#wonModal .moves").text("Moves: " + parseInt(game.moves));
       $("#wonModal .starRating").text(function() {
         var starString = "";
