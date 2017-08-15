@@ -168,7 +168,7 @@ $(function() {
     $('#wonModal').modal('hide');
   });
 
-  $(".gameBoard").on("click", "[data-card-position]:not(.found)", function() {
+  $(".game-Board").on("click", "[data-card-position]:not(.found)", function() {
     // If two cards have been selected and compared, prevent other cards to be selected.
     if (game.cardPairComparison === true) {
       $(this).hide('fast').show('fast');
