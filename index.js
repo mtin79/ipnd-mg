@@ -74,6 +74,27 @@ var game = {
     $('[data-card-position]').removeClass("memoryCard--mismatch");
     $('[data-card-position]').css("background-image", game.defaultCardPicture);
     console.log("gridOfCards: "+this.gridOfCards);
+  },
+  updateGameStats: function(){
+    // update the moves counter showing the number of card pairs drawn.
+    $(".controls__moves").text(parseInt(game.moves));
+
+    // update the starRating according to the number of moves made.
+    $(".controls__rating").text(function(){
+      var starString = "";
+      var starActiveString = '<i class="fa fa-star" aria-hidden="true"></i>';
+      var starInactiveString = '<i class="fa fa-star-o" aria-hidden="true"></i>';
+      if (game.moves > 0 && game.moves <= game.starRatingThresholds[2]) {
+        starString = starActiveString + starActiveString + starActiveString;
+      } else if (game.moves <= game.starRatingThresholds[1]){
+        starString = starActiveString + starActiveString + starInactiveString;
+      } else {
+        starString = starActiveString + starInactiveString + starInactiveString;
+      };
+      console.log($(this));
+
+      $(this).html("Rating: "+starString);
+    });
   }
 }
 
@@ -101,17 +122,16 @@ $(function() {
 
     var selectedCard = $(this);
     var pictureUrlOfCard = game.picturesForCards[game.gridOfCards[selectedCard.data("cardPosition")-1]];
-    
+
     selectedCard.css("background-image", pictureUrlOfCard);
     game.drawStepCards[game.availableStepsPerDraw-1] = $(this).data("cardPosition");
 
-    console.log("game.drawStepCards :"+game.drawStepCards);
-    console.log("availableStepsPerDraw:"+game.availableStepsPerDraw);
+    // console.log("game.drawStepCards :"+game.drawStepCards);
+    // console.log("availableStepsPerDraw:"+game.availableStepsPerDraw);
 
     switch (game.availableStepsPerDraw) {
       case 1:
         game.availableStepsPerDraw += 1;
-        game.moves += 1;
         break;
       case 2:
         game.cardPairComparison = true;
@@ -129,6 +149,7 @@ $(function() {
         }
         game.moves += 1;
         game.availableStepsPerDraw = 1;
+        game.updateGameStats();
         break;
     }
 
@@ -145,7 +166,7 @@ $(function() {
         } else if (game.moves <= game.starRatingThresholds[1]){
           starString = starActiveString + starActiveString + starInactiveString;
         } else {
-          starString = starInactiveString + starInactiveString + starInactiveString;
+          starString = starActiveString + starInactiveString + starInactiveString;
         };
         console.log($(this));
 
