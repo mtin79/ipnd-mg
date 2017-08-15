@@ -103,10 +103,11 @@ var game = {
     if (game.gridOfCards[game.drawStepCards[0] - 1] !== game.gridOfCards[game.drawStepCards[1] - 1]) {
       $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').addClass("memoryCard--mismatch");
       var timeoutID = window.setTimeout(function() {
-          $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').removeClass("memoryCard--mismatch").css("background-image", game.defaultCardPicture);
+          $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').removeClass("memoryCard--mismatch").removeClass("found").css("background-image", game.defaultCardPicture);
           game.cardPairComparison = false;
         },
         2000);
+
     } else {
       game.cardPairsFound += 1;
       $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]').addClass("found");
@@ -158,12 +159,14 @@ $(function() {
     $('#wonModal').modal('hide');
   });
 
-  $('[data-card-position]:not(.found)').click(function() {
+  $(".gameBoard").on("click", "[data-card-position]:not(.found)", function() {
     // If two cards have been selected and compared, prevent other cards to be selected.
     if (game.cardPairComparison === true) {
       $(this).hide('fast').show('fast');
       return;
     }
+
+    $(this).addClass("found");
 
     // Test if game just got started to initialize gameplay variables.
     game.startGame();
