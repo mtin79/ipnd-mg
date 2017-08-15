@@ -17,14 +17,14 @@ Array.prototype.shuffle = function() {
 // It contains state and behavior of it.
 var game = {
   gameStarted: false,
-  gameStartDate: undefined,
-  gameEndDate: undefined,
-  gameDurationInSeconds: undefined,
+  gameStartDate: null,
+  gameEndDate: null,
+  gameDurationInSeconds: null,
   moves: 0,
   cardPairComparison: false,
   gameplayStarRating: 3,
   cardPairsFound: 0,
-  drawStepCards: [undefined, undefined],
+  drawStepCards: [null, null],
   starRatingThresholds: [64, 32, 16],
   availableStepsPerDraw: 1,
   gridOfCards: [
@@ -62,14 +62,14 @@ var game = {
 
   initialize: function() {
     game.gameStarted = false;
-    game.gameStartDate = undefined;
-    game.gameEndDate = undefined;
-    game.gameDurationInSeconds = undefined;
+    game.gameStartDate = null;
+    game.gameEndDate = null;
+    game.gameDurationInSeconds = null;
     game.availableStepsPerDraw = 1;
     game.moves = 0;
     game.gameplayStarRating = 3;
     game.cardPairsFound = 0;
-    game.drawStepCards = [undefined, undefined];
+    game.drawStepCards = [null, null];
     game.gridOfCards.shuffle();
     $(".controls span").text("");
     $('[data-card-position]').removeClass("found");
