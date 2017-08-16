@@ -27,6 +27,8 @@ var game = {
   drawStepCards: [null, null],
   starRatingThresholds: [64, 32, 16],
   availableStepsPerDraw: 1,
+  timer: null,
+  time: 0,
   gridOfCards: [
     "a", "a", "b", "b",
     "c", "c", "d", "d",
@@ -37,6 +39,8 @@ var game = {
     if (game.gameStarted === false) {
       game.gameStarted = true;
       game.gameStartDate = Date.now();
+      $(".controls__timer").text(0);
+      game.startTimer();
 
       console.log("Game started: " + game.gameStarted + " ," + game.gameStartDate);
     }
@@ -46,7 +50,16 @@ var game = {
       game.gameStarted = false;
       game.gameEndDate = Date.now();
       game.gameDurationInSeconds = (game.gameEndDate - game.gameStartDate) / 1000;
+      game.endTimer();
     }
+  },
+  startTimer: function(){
+    game.timer = setInterval(function(){
+      $(".controls__timer").text(game.time += 1);
+    }, 1000);
+  },
+  endTimer: function(){
+    clearInterval(game.timer);
   },
   picturesForCards: {
     a: "url('./media/board-game.jpg')",
@@ -59,7 +72,6 @@ var game = {
     h: "url('./media/seagull.jpg')"
   },
   defaultCardPicture: "url('./media/contemporary_china.png')",
-
   initialize: function() {
     game.gameStarted = false;
     game.gameStartDate = null;
@@ -71,11 +83,12 @@ var game = {
     game.cardPairsFound = 0;
     game.drawStepCards = [null, null];
     game.gridOfCards.shuffle();
+    game.timer = null;
+    game.time = 0;
     $(".controls span").text("");
     $('[data-card-position]').removeClass("found");
     $('[data-card-position]').removeClass("memory-card--mismatch");
     $('[data-card-position]').css("background-image", game.defaultCardPicture);
-    console.log("gridOfCards: " + this.gridOfCards);
   },
   updateGameStats: function() {
     // update the moves counter showing the number of card pairs drawn.
