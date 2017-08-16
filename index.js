@@ -73,7 +73,7 @@ var game = {
     game.gridOfCards.shuffle();
     $(".controls span").text("");
     $('[data-card-position]').removeClass("found");
-    $('[data-card-position]').removeClass("memoryCard--mismatch");
+    $('[data-card-position]').removeClass("memory-card--mismatch");
     $('[data-card-position]').css("background-image", game.defaultCardPicture);
     console.log("gridOfCards: " + this.gridOfCards);
   },
@@ -104,10 +104,10 @@ var game = {
     game.cardPairComparison = true;
     if (game.gridOfCards[game.drawStepCards[0] - 1] !== game.gridOfCards[game.drawStepCards[1] - 1]) {
       $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]')
-        .addClass("memoryCard--mismatch");
+        .addClass("memory-card--mismatch");
       var timeoutID = window.setTimeout(function() {
         $('[data-card-position="' + game.drawStepCards[0] + '"], [data-card-position="' + game.drawStepCards[1] + '"]')
-          .removeClass("memoryCard--mismatch").removeClass("found").css("background-image", game.defaultCardPicture);
+          .removeClass("memory-card--mismatch").removeClass("found").css("background-image", game.defaultCardPicture);
           game.cardPairComparison = false;
         },
         2000);

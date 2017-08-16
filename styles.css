@@ -16,7 +16,7 @@
   display: block;
 }
 
-.memoryCard {
+.memory-card {
   position: relative;
   width: 23%;
   height: 23%;
@@ -33,15 +33,15 @@
   background-size: 150%;
 }
 
-.memoryCard--mismatch {
+.memory-card--mismatch {
   border-color: red;
 }
 
-.memoryCard:not(.found) {
+.memory-card:not(.found) {
   background-image: url("media/contemporary_china.png");
 }
 
-.memoryCard .memoryCard__content {
+.memory-card .memory-card__content {
   position: absolute;
   top: 0;
   right: 0;
